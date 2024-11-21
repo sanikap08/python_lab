@@ -1,4 +1,10 @@
 {
-    "inventory": {},
-    "minimum_stock_level": {}
+    "inventory": {
+        "ScrewDrivers": 200,
+        "screws": 200
+    },
+    "minimum_stock_level": {
+        "ScrewDrivers": 30,
+        "screws": 20
+    }
 }
