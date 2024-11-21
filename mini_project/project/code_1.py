@@ -9,11 +9,20 @@ class InventoryManagementSystem:
         """Loads inventory data from a file."""
         try:
             with open(filename, 'r') as file:
-                data = json.load(file)
+                data = file.read().strip()  # Read the file content
+                if not data:  # If file is empty
+                    print("Inventory file is empty. Starting fresh.")
+                    return  # No need to load anything, just continue
+                data = json.loads(data)  # Try parsing the data as JSON
                 self.inventory = data.get("inventory", {})
                 self.minimum_stock_level = data.get("minimum_stock_level", {})
         except FileNotFoundError:
             print("No existing inventory file found. Starting fresh.")
+        except json.JSONDecodeError:
+            print("Error decoding JSON from file. Starting fresh.")
+            # Handle case where the file contains invalid JSON
+        except Exception as e:
+            print(f"Unexpected error: {e}")
 
     def save_data(self, filename="inventory.json"):
         """Saves inventory data to a file."""
